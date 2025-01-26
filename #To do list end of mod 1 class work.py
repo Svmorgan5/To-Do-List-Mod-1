@@ -17,49 +17,54 @@ def display_menu():
     return choice
 
 # # Define an empty list to store tasks
+def add_tasks():
+    task = input("what would you like to add?")
+    tasks.append(task) 
+    print(f"Your task {task} was added to your list!")
 
+def view_tasks():
+    if tasks:
+        print("\n Your Tasks:")
+        for index, task in enumerate(tasks, start= 1):
+            print(f"{index}. {task}")
+
+def remove_task():
+    if tasks:
+        print("\nYour Tasks:")
+        for index, task in enumerate(tasks, start=1):  # Display tasks with numbering
+            print(f"{index}. {task}")
+        
+        try:
+            task_num = int(input("Enter the number of the task to delete: "))
+            if 1 <= task_num <= len(tasks):
+                removed_task = tasks.pop(task_num - 1)  # Remove the selected task
+                print(f"Task '{removed_task}' has been deleted!")
+            else:
+                print("Invalid task number.")
+        except ValueError:
+            print("Please enter a valid number.")
+    else:
+        print("There are no tasks to delete!")  # Message if the list is empty
+
+def quit_program():
+    print("Thanks for using the To Do List program! Take care!")
+    exit() #exit the program
+
+    
 
 # Loop to keep the program running
 while True:
     user_choice = display_menu()  # Call the display menu 
 
     if user_choice == "1":
-        task = input("What would you like to add? ")
-        tasks.append(task)
-        print(f"Task {task} added!")  # Confirmation message
+        add_tasks()
 
     elif user_choice == "2":
-        if tasks:  
-            print("\nYour Tasks:")
-            index = 1
-            for task in tasks:
-                print(f"{index}, {task}") 
-                index += 1
-        else:
-            print("No tasks to display.")  # Message if the list is empty
+        view_tasks()
     
     elif user_choice == "3":
-        if tasks:
-            print("\nYour Tasks")
-            index = 1
-            for task in tasks:
-                print(f"{index}, {task}")
-                index += 1
-                
-            try:
-                task_num = int(input("What number would you like to delete? :"))
-                if 1 <= task_num <= len(tasks):
-                    remove_task = tasks.pop(task_num - 1)
-                    print(f"Task '{remove_task} has been deleted!")
-                else:
-                    print("invalid task number")
-            except ValueError:
-                print("Please enter a valid number")
-        else:
-            print("There are no task to delete!")
-        
+        remove_task()
+    
     elif user_choice == "4":
-        print("I'll see you later! Exiting program")
-        break
-    else:
-        print("Invalid choice, please choose between 1-4")
+        quit_program()
+        
